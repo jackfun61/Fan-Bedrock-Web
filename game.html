@@ -1,64 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Fan Bedrock Test</title>
-  <style>
-    body { margin:0; overflow:hidden; background:#87ceeb; }
-    canvas { display:block; }
-  </style>
+<meta charset="UTF-8">
+<title>Mini Bedrock</title>
+<style>
+  body { margin:0; background:#87ceeb; display:flex; justify-content:center; align-items:center; height:100vh; }
+  canvas { background:#87ceeb; }
+</style>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+<canvas id="game" width="400" height="400"></canvas>
 <script>
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x87ceeb);
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
 
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  const blockSize = 20;
+  const rows = 10;
+  const cols = 10;
 
-  // Lights
-  const light = new THREE.DirectionalLight(0xffffff,1);
-  light.position.set(10,10,10);
-  scene.add(light);
-  const ambient = new THREE.AmbientLight(0xffffff,0.5);
-  scene.add(ambient);
-
-  // Blocks
-  const blockSize = 1;
-  const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize);
-  const materialTop = new THREE.MeshStandardMaterial({color:0x228B22}); // green top
-  const materialSide = new THREE.MeshStandardMaterial({color:0x8B4513}); // brown sides
-  const materials = [materialSide, materialSide, materialTop, materialSide, materialSide, materialSide];
-
-  const world = [];
-  const size = 10;
-  for(let x=-size;x<size;x++){
-    for(let z=-size;z<size;z++){
-      const block = new THREE.Mesh(geometry, materials);
-      block.position.set(x,0,z);
-      scene.add(block);
-      world.push(block);
+  function drawWorld() {
+    for(let x=0;x<cols;x++){
+      for(let y=0;y<rows;y++){
+        ctx.fillStyle = '#228B22'; // green top
+        ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
+        ctx.strokeStyle = '#8B4513'; // brown border
+        ctx.strokeRect(x*blockSize, y*blockSize, blockSize, blockSize);
+      }
     }
   }
 
-  // Camera above blocks
-  camera.position.set(0,10,15);
-  camera.lookAt(0,0,0);
-
-  function animate(){
-    requestAnimationFrame(animate);
-    renderer.render(scene,camera);
-  }
-  animate();
-
-  window.addEventListener('resize',()=>{
-    camera.aspect = window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  drawWorld();
 </script>
 </body>
 </html>
