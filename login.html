@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fan Bedrock Login</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fan Bedrock Login</h1>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // simple test login
+      if(username && password) {
+        // Save username in session storage for main menu
+        sessionStorage.setItem('playerName', username);
+        window.location.href = 'mainmenu.html';
+      } else {
+        alert('Please enter a username and password.');
+      }
+    }
+  </script>
+</body>
+</html>

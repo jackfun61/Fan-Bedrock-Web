@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fan Bedrock Main Menu</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome, <span id="playerName"></span>!</h1>
+  <button onclick="startGame()">Play</button>
+  <button onclick="openSettings()">Settings</button>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    // Display username from login
+    document.getElementById('playerName').textContent = sessionStorage.getItem('playerName');
+
+    function startGame() {
+      alert('Game starting...'); // later replace with actual game page
+    }
+
+    function openSettings() {
+      alert('Settings menu (soon)'); // can link to settings.html later
+    }
+
+    function logout() {
+      sessionStorage.removeItem('playerName');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
